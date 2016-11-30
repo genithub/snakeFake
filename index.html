@@ -1,13 +1,8 @@
-<?php
-// Start the session
-session_start();
-?>
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Snake Make | Start</title>
+  <title>snakeFake | Start</title>
   <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
 
@@ -22,9 +17,20 @@ session_start();
 </head>
 <body>
 <script>
+
 alertify.prompt( 'Just One Step Away', 'Enter your Name:', ''
-               , function(evt, value) { window.open('snake.php',"_self");}
-               , function() { alertify.error("You can't play the game without entering your name"); location.reload();});
+               , 
+               function(evt, value) 
+               { 
+               	alertify.success("Your game is going to start. \n Be ready!");
+               	setTimeout(window.location = "snakeFake.html?temp=" + value, 99999);
+               }
+               , 
+               function() 
+               { 
+				alertify.error("You can't play the game without entering your name");
+				setTimeout(location.reload(), 99999);
+               });
 </script>
 
 

@@ -1,17 +1,14 @@
-<?php
-// Start the session
-session_start();
-?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Simple Snake Game</title>
+  <meta charset="UTF-8" />
+  <title>snakeFake | The Game</title>
  <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css"/>
 <!-- Default theme -->
@@ -21,7 +18,7 @@ session_start();
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/bootstrap.min.css"/>
 
-  <!-- Basic styling, centering of the canvas. -->
+ <!-- Basic styling, centering of the canvas. -->
   <style>
   canvas {
     display: block;
@@ -36,7 +33,15 @@ session_start();
   </style>
 </head>
 <body>
+<script type="text/javascript">
+  
+
+
+
+</script>
 <script>
+
+var triggerOnceforShare = true;
 var
 
 /**
@@ -297,15 +302,24 @@ function update() {
       0 > ny || ny > grid.height-1 ||
       grid.get(nx, ny) === SNAKE
     ) {
-        alertify.confirm('Your score is: ' + score, 'Wanna play again?', function(){ location.reload(); }
-                  , function(){ window.open('scoreboard.html')});
-      
-        timer.start();
-        setTimeout(stopTimer,100000);
+if(triggerOnceforShare){
+ var encoded_name = location.search.split('temp=')[1] ? location.search.split('temp=')[1] : 'anonymous';
+        var name = decodeURI(encoded_name);
+
+
+          $.post("score.php",
+        {
+          name: name,
+          score: score
+        }
+        );
+          
+          triggerOnceforShare = false;
+          alertify.confirm('Your score is: ' + score, 'Wanna play again?', function(){ window.open(location.href,'_self'); }
+                  , function(){ window.open('scoreboard.php?temp='+name)});
+      }
         
-        function stopTimer () {
-        timer.stop;
-        }  
+          
       }
 
     // check wheter the new position are on the fruit item
